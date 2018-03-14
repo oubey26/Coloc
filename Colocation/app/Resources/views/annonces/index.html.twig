@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('fos_user_security_logout') }}"> {{'se déconnecter'|trans}} </a>
+
+    <h1>{{'Annonces list'|trans}}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Adresse</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Datedebut</th>
+                <th>Nombredechambre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for annonce in annonces %}
+            <tr>
+                <td><a href="{{ path('annonces_show', { 'id': annonce.id }) }}">{{ annonce.id }}</a></td>
+                <td>{{ annonce.adresse }}</td>
+                <td>{{ annonce.description }}</td>
+                <td>{{ annonce.prix }}</td>
+                <td>{% if annonce.dateDebut %}{{ annonce.dateDebut|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ annonce.nombreDeChambre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('annonces_show', { 'id': annonce.id }) }}">{{'show'|trans}}</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('annonces_edit', { 'id': annonce.id }) }}">{{'edit'|trans}}</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('annonces_new') }}">{{'Create a new annonce'|trans}}</a>
+        </li>
+    </ul>
+{% endblock %}
